@@ -760,7 +760,7 @@ function drawCanvas(){
       photoH / uploadedImage.height;
 
     const ratio =
-      Math.max(hRatio,vRatio);
+      Math.min(hRatio,vRatio);
 
     const newWidth =
       uploadedImage.width * ratio;
@@ -786,6 +786,16 @@ function drawCanvas(){
     );
 
     ctx.clip();
+
+    // Fond derrière photo
+    ctx.fillStyle = "#EFEFEF";
+
+    ctx.fillRect(
+      photoX,
+      photoY,
+      photoW,
+      photoH
+    );
 
     ctx.drawImage(
       uploadedImage,
