@@ -268,65 +268,398 @@
             </div>
           </section>
 
-          <section id="jyserai" style={{ background: "linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC)", padding: "88px 24px" }}>
-  <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
-    <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: "clamp(26px,4vw,44px)", color: HEADING, fontWeight: 700, marginBottom: 10 }}>
-      Affiche fièrement ta participation !
-    </h2>
-    <div style={{ width: 60, height: 3, background: AMBER, margin: "0 auto 20px" }} />
-    <p style={{ color: BODY, marginBottom: 38, lineHeight: 1.7, fontSize: 15 }}>
-      Importe ta photo, ajoute ton prénom et partage pour montrer que tu seras présent(e) 🎉
-    </p>
+          ```jsx
+import React, { useRef, useState, useEffect } from "react";
 
-    {/* Canvas avec cadre unique */}
-    <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: 300,
-          height: 300,
-          borderRadius: 10,
-          boxShadow: "0 16px 56px rgba(200,120,10,0.28), 0 4px 16px rgba(0,0,0,0.12)",
-          position: "relative" // Pour le positionnement du nom
-        }}
-      />
-    </div>
+// Couleurs du thème
+const WHITE = "#FFFFFF";
+const AMBER = "#F5A623";
+const AMBER_DARK = "#D4891A";
+const GOLD = "#FFD700";
+const DARK_BROWN = "#5C3A21";
+const BLACK = "#000000";
 
-    {/* Champ pour le prénom */}
-    <input
-      value={userName}
-      onChange={e => setUserName(e.target.value)}
-      placeholder="Ton prénom (ex : Marie ADJOBO)"
-      style={{
-        background: WHITE,
-        border: `1.5px solid ${AMBER_LT}`,
-        borderRadius: 10,
-        padding: "13px 22px",
-        color: HEADING,
-        fontSize: 16,
-        width: "100%",
-        maxWidth: 400,
-        outline: "none",
-        margin: "0 auto 24px",
-        fontWeight: 600 // Police plus épaisse
-      }}
-    />
+const PhotoFrame = () => {
+  const canvasRef = useRef(null);
+  const fileRef = useRef(null);
+  const [userName, setUserName] = useState("");
+  const [image, setImage] = useState(null);
 
-    {/* Boutons */}
-    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-      <input type="file" accept="image/*" ref={fileRef} style={{ display: "none" }} onChange={handleFile} />
-      <button onClick={() => fileRef.current.click()} style={{ background: WHITE, color: AMBER, border: `2px solid ${AMBER}`, padding: "13px 26px", borderRadius: 50, fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
-        📸 Importer ma photo
-      </button>
-      <button onClick={handleDownload} style={{ background: AMBER, color: WHITE, padding: "13px 26px", borderRadius: 50, fontWeight: 800, cursor: "pointer", fontSize: 14, border: "none" }}>
-        ⬇️ Télécharger
-      </button>
-      <button onClick={() => window.open("https://wa.me/?text=" + encodeURIComponent("Je participe à La Rencontre des Enfants ADJOBO ! 🎉 Du 24 au 26 juillet 2026 à Kilibo, Bénin. #EnfantsADJOBO"), "_blank")} style={{ background: "#25D366", color: WHITE, padding: "13px 26px", borderRadius: 50, fontWeight: 700, cursor: "pointer", fontSize: 14, border: "none" }}>
-        📲 Partager WhatsApp
-      </button>
-    </div>
-  </div>
-</section>
+  // Fonction pour redimensionner l'image sans déformation
+  const resizeImage = (img, maxWidth, maxHeight) => {
+    const canvas = document.createElement('canvas');
+    let width = img.width;
+    let height = img.height;
+
+    // Calculer les nouvelles dimensions
+    if (width > height) {
+      if (width > maxWidth) {
+        height *= maxWidth / width;
+        width = maxWidth;
+      }
+    } else {
+      if (height > maxHeight) {
+        width *= maxHeight / height;
+        height = maxHeight;
+      }
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+    return canvas;
+  };
+
+  // Dessiner l'image avec tous les éléments
+  const drawImage = (img) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    // Dimensions du canvas
+    const canvasWidth = 300;
+    const canvasHeight = 300;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    // Fond blanc avec ombre légère
+    ctx.fillStyle = WHITE;
+    ctx.shadowColor = "rgba(0,0,0,0.1)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 5;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.shadowColor = "transparent";
+
+    // Redimensionner et centrer l'image
+    const resizedImg = resizeImage(img, canvasWidth - 20, canvasHeight - 120);
+    const x = (canvasWidth - resizedImg.width) / 2;
+    const y = 10;
+    ctx.drawImage(resizedImg, x, y);
+
+    // Cadre doré avec effet de profondeur
+    drawFrame(ctx, canvasWidth, canvasHeight);
+
+    // Éléments de l'événement
+    drawEventText(ctx, canvasWidth, canvasHeight);
+
+    // Nom de l'utilisateur
+    if (userName) {
+      drawUserName(ctx, userName, canvasWidth, canvasHeight);
+    }
+  };
+
+  // Dessiner le cadre élégant
+  const drawFrame = (ctx, canvasWidth, canvasHeight) => {
+    // Cadre extérieur (ombre)
+    ctx.strokeStyle = "rgba(0,0,0,0.1)";
+    ctx.lineWidth = 8;
+    ctx.strokeRect(5, 5, canvasWidth - 10, canvasHeight - 10);
+
+    // Cadre intérieur (dégradé doré)
+    const gradient = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
+    gradient.addColorStop(0, GOLD);
+    gradient.addColorStop(0.5, AMBER);
+    gradient.addColorStop(1, AMBER_DARK);
+
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(10, 10, canvasWidth - 20, canvasHeight - 20);
+
+    // Effet de lumière
+    ctx.beginPath();
+    ctx.moveTo(20, 20);
+    ctx.lineTo(40, 10);
+    ctx.strokeStyle = "rgba(255,255,255,0.7)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  };
+
+  // Dessiner les textes de l'événement
+  const drawEventText = (ctx, canvasWidth, canvasHeight) => {
+    // Fond semi-transparent pour les textes
+    ctx.fillStyle = "rgba(255,255,255,0.9)";
+    ctx.roundRect(20, canvasHeight - 90, canvasWidth - 40, 70, 10);
+    ctx.fill();
+
+    // "J'y Serai !" - Texte principal
+    ctx.font = "bold 28px 'Playfair Display', serif";
+    ctx.fillStyle = AMBER_DARK;
+    ctx.textAlign = "center";
+    ctx.fillText("J'y Serai !", canvasWidth / 2, canvasHeight - 65);
+
+    // "RENCONTRE ENFANTS"
+    ctx.font = "600 10px 'Poppins', sans-serif";
+    ctx.fillStyle = DARK_BROWN;
+    ctx.fillText("RENCONTRE ENFANTS", canvasWidth / 2, canvasHeight - 45);
+
+    // "ADJOBO 2026"
+    ctx.font = "bold 16px 'Poppins', sans-serif";
+    ctx.fillStyle = AMBER;
+    ctx.fillText("ADJOBO 2026", canvasWidth / 2, canvasHeight - 25);
+  };
+
+  // Dessiner le nom de l'utilisateur
+  const drawUserName = (ctx, name, canvasWidth, canvasHeight) => {
+    const text = name.toUpperCase();
+    const fontSize = 18;
+    const padding = 10;
+
+    ctx.font = `bold ${fontSize}px 'Poppins', sans-serif`;
+    ctx.textAlign = "center";
+
+    const textWidth = ctx.measureText(text).width + 2 * padding;
+    const textHeight = fontSize + 2 * padding;
+
+    const x = canvasWidth / 2;
+    const y = canvasHeight - 100;
+
+    // Fond dégradé
+    const gradient = ctx.createLinearGradient(
+      x - textWidth / 2,
+      y - textHeight / 2,
+      x + textWidth / 2,
+      y + textHeight / 2
+    );
+    gradient.addColorStop(0, AMBER_DARK);
+    gradient.addColorStop(1, GOLD);
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.roundRect(
+      x - textWidth / 2,
+      y - textHeight / 2,
+      textWidth,
+      textHeight,
+      15
+    );
+    ctx.fill();
+
+    // Ombre
+    ctx.shadowColor = "rgba(0,0,0,0.2)";
+    ctx.shadowBlur = 3;
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 1;
+
+    // Texte
+    ctx.fillStyle = WHITE;
+    ctx.fillText(text, x, y);
+
+    ctx.shadowColor = "transparent";
+  };
+
+  // Gestion de l'import de photo
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        setImage(img);
+        drawImage(img);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Téléchargement
+  const handleDownload = () => {
+    const canvas = canvasRef.current;
+    const link = document.createElement("a");
+    link.download = `JySerai_${userName || "ADJOBO"}.png`;
+    link.href = canvas.toDataURL("image/png", 1.0); // Qualité maximale
+    link.click();
+  };
+
+  return (
+    <section style={{
+      background: "linear-gradient(135deg, #FFF8E7 0%, #FFE8B3 100%)",
+      padding: "80px 24px",
+      minHeight: "100vh"
+    }}>
+      <div style={{
+        maxWidth: 800,
+        margin: "0 auto",
+        textAlign: "center"
+      }}>
+        <h2 style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: "clamp(28px, 4vw, 48px)",
+          color: DARK_BROWN,
+          fontWeight: 700,
+          marginBottom: 15,
+          lineHeight: 1.2
+        }}>
+          Montre ta participation à la<br />
+          <span style={{ color: AMBER }}>Rencontre Enfants ADJOBO 2026</span>
+        </h2>
+
+        <div style={{
+          width: 60,
+          height: 4,
+          background: `linear-gradient(90deg, ${GOLD}, ${AMBER})`,
+          margin: "0 auto 25px"
+        }} />
+
+        <p style={{
+          color: DARK_BROWN,
+          marginBottom: 40,
+          lineHeight: 1.7,
+          fontSize: 16,
+          fontFamily: "'Poppins', sans-serif"
+        }}>
+          Crée ton cadre personnalisé et partage-le pour montrer que tu seras présent(e) à cet événement exceptionnel !
+        </p>
+
+        {/* Canvas */}
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: 30,
+          position: "relative"
+        }}>
+          <canvas
+            ref={canvasRef}
+            style={{
+              width: 300,
+              height: 300,
+              borderRadius: 12,
+              boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+              transition: "transform 0.3s ease"
+            }}
+          />
+          <div style={{
+            position: "absolute",
+            top: -10,
+            right: -10,
+            background: AMBER,
+            color: WHITE,
+            padding: "5px 10px",
+            borderRadius: 20,
+            fontSize: 12,
+            fontWeight: 600,
+            fontFamily: "'Poppins', sans-serif"
+          }}>
+            ADJOBO 2026
+          </div>
+        </div>
+
+        {/* Champ prénom */}
+        <input
+          value={userName}
+          onChange={(e) => {
+            setUserName(e.target.value);
+            if (image) drawImage(image);
+          }}
+          placeholder="Ton prénom (ex: Marie)"
+          style={{
+            background: WHITE,
+            border: `1.5px solid ${AMBER}`,
+            borderRadius: 50,
+            padding: "14px 24px",
+            color: DARK_BROWN,
+            fontSize: 16,
+            width: "100%",
+            maxWidth: 400,
+            outline: "none",
+            margin: "0 auto 25px",
+            fontWeight: 500,
+            fontFamily: "'Poppins', sans-serif",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.05)"
+          }}
+        />
+
+        {/* Boutons */}
+        <div style={{
+          display: "flex",
+          gap: 12,
+          flexWrap: "wrap",
+          justifyContent: "center",
+          marginTop: 20
+        }}>
+          <input type="file" accept="image/*" ref={fileRef} style={{ display: "none" }} onChange={handleFile} />
+          <button
+            onClick={() => fileRef.current.click()}
+            style={{
+              background: WHITE,
+              color: AMBER_DARK,
+              border: `2px solid ${AMBER}`,
+              padding: "12px 28px",
+              borderRadius: 50,
+              fontWeight: 600,
+              cursor: "pointer",
+              fontSize: 14,
+              fontFamily: "'Poppins', sans-serif",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "translateY(0)"}
+          >
+            <span>📸</span> Importer ma photo
+          </button>
+
+          <button
+            onClick={handleDownload}
+            style={{
+              background: `linear-gradient(135deg, ${AMBER}, ${AMBER_DARK})`,
+              color: WHITE,
+              padding: "12px 28px",
+              borderRadius: 50,
+              fontWeight: 700,
+              cursor: "pointer",
+              fontSize: 14,
+              border: "none",
+              fontFamily: "'Poppins', sans-serif",
+              boxShadow: "0 4px 15px rgba(245, 166, 35, 0.4)",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "translateY(0)"}
+          >
+            <span>⬇️</span> Télécharger
+          </button>
+
+          <button
+            onClick={() => window.open("https://wa.me/?text=" + encodeURIComponent("Je serai présent(e) à la Rencontre Enfants ADJOBO 2026 ! 🎉 Du 24 au 26 juillet à Kilibo. #EnfantsADJOBO"), "_blank")}
+            style={{
+              background: "#25D366",
+              color: WHITE,
+              padding: "12px 28px",
+              borderRadius: 50,
+              fontWeight: 600,
+              cursor: "pointer",
+              fontSize: 14,
+              border: "none",
+              fontFamily: "'Poppins', sans-serif",
+              boxShadow: "0 4px 10px rgba(37, 211, 102, 0.3)",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "translateY(0)"}
+          >
+            <span>📲</span> Partager
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default PhotoFrame;
+```
 
           <section id="infos" style={{ padding: "88px 24px", background: PAGE_BG }}>
             <div style={{ maxWidth: 1000, margin: "0 auto" }}>
