@@ -269,38 +269,64 @@
           </section>
 
           <section id="jyserai" style={{ background: "linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC)", padding: "88px 24px" }}>
-            <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
-              <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: "clamp(26px,4vw,44px)", color: HEADING, fontWeight: 700, marginBottom: 10 }}>Affiche fièrement ta participation !</h2>
-              <div style={{ width: 60, height: 3, background: AMBER, margin: "0 auto 20px" }} />
-              <p style={{ color: BODY, marginBottom: 38, lineHeight: 1.7, fontSize: 15 }}>
-                Importe ta photo, choisis ton style de cadre, personnalise avec ton prénom et partage pour montrer que tu seras présent(e) 🎉
-              </p>
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginBottom: 32 }}>
-                {FRAME_STYLES.map((f,i) => (
-                  <button key={f.id} onClick={() => setFrameIdx(i)} style={{ padding: "10px 22px", borderRadius: 50, border: `2px solid ${i===frameIdx ? AMBER : "rgba(200,120,10,0.25)"}`, background: i===frameIdx ? "rgba(200,120,10,0.12)" : WHITE, color: i===frameIdx ? AMBER : BODY, fontWeight: 700, fontSize: 14, cursor: "pointer", transition: "all .2s" }}>
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-              <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
-                <canvas ref={canvasRef} style={{ width: 300, height: 300, borderRadius: 10, boxShadow: "0 16px 56px rgba(200,120,10,0.28), 0 4px 16px rgba(0,0,0,0.12)" }} />
-              </div>
-              <input value={userName} onChange={e => setUserName(e.target.value)} placeholder="Ton prénom (ex : Marie ADJOBO)"
-                style={{ background: WHITE, border: `1.5px solid ${AMBER_LT}`, borderRadius: 10, padding: "13px 22px", color: HEADING, fontSize: 16, width: "100%", maxWidth: 400, outline: "none", marginBottom: 24, display: "block", margin: "0 auto 24px" }} />
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-                <input type="file" accept="image/*" ref={fileRef} style={{ display: "none" }} onChange={handleFile} />
-                <button onClick={() => fileRef.current.click()} style={{ background: WHITE, color: AMBER, border: `2px solid ${AMBER}`, padding: "13px 26px", borderRadius: 50, fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
-                  📸 Importer ma photo
-                </button>
-                <button onClick={handleDownload} style={{ background: AMBER, color: WHITE, padding: "13px 26px", borderRadius: 50, fontWeight: 800, cursor: "pointer", fontSize: 14, border: "none" }}>
-                  ⬇️ Télécharger
-                </button>
-                <button onClick={() => window.open("https://wa.me/?text=" + encodeURIComponent("Je participe à La Rencontre des Enfants ADJOBO ! 🎉 Du 24 au 26 juillet 2026 à Kilibo, Bénin. #EnfantsADJOBO"), "_blank")} style={{ background: "#25D366", color: WHITE, padding: "13px 26px", borderRadius: 50, fontWeight: 700, cursor: "pointer", fontSize: 14, border: "none" }}>
-                  📲 Partager WhatsApp
-                </button>
-              </div>
-            </div>
-          </section>
+  <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
+    <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: "clamp(26px,4vw,44px)", color: HEADING, fontWeight: 700, marginBottom: 10 }}>
+      Affiche fièrement ta participation !
+    </h2>
+    <div style={{ width: 60, height: 3, background: AMBER, margin: "0 auto 20px" }} />
+    <p style={{ color: BODY, marginBottom: 38, lineHeight: 1.7, fontSize: 15 }}>
+      Importe ta photo, ajoute ton prénom et partage pour montrer que tu seras présent(e) 🎉
+    </p>
+
+    {/* Canvas avec cadre unique */}
+    <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: 300,
+          height: 300,
+          borderRadius: 10,
+          boxShadow: "0 16px 56px rgba(200,120,10,0.28), 0 4px 16px rgba(0,0,0,0.12)",
+          position: "relative" // Pour le positionnement du nom
+        }}
+      />
+    </div>
+
+    {/* Champ pour le prénom */}
+    <input
+      value={userName}
+      onChange={e => setUserName(e.target.value)}
+      placeholder="Ton prénom (ex : Marie ADJOBO)"
+      style={{
+        background: WHITE,
+        border: `1.5px solid ${AMBER_LT}`,
+        borderRadius: 10,
+        padding: "13px 22px",
+        color: HEADING,
+        fontSize: 16,
+        width: "100%",
+        maxWidth: 400,
+        outline: "none",
+        margin: "0 auto 24px",
+        fontWeight: 600 // Police plus épaisse
+      }}
+    />
+
+    {/* Boutons */}
+    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+      <input type="file" accept="image/*" ref={fileRef} style={{ display: "none" }} onChange={handleFile} />
+      <button onClick={() => fileRef.current.click()} style={{ background: WHITE, color: AMBER, border: `2px solid ${AMBER}`, padding: "13px 26px", borderRadius: 50, fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+        📸 Importer ma photo
+      </button>
+      <button onClick={handleDownload} style={{ background: AMBER, color: WHITE, padding: "13px 26px", borderRadius: 50, fontWeight: 800, cursor: "pointer", fontSize: 14, border: "none" }}>
+        ⬇️ Télécharger
+      </button>
+      <button onClick={() => window.open("https://wa.me/?text=" + encodeURIComponent("Je participe à La Rencontre des Enfants ADJOBO ! 🎉 Du 24 au 26 juillet 2026 à Kilibo, Bénin. #EnfantsADJOBO"), "_blank")} style={{ background: "#25D366", color: WHITE, padding: "13px 26px", borderRadius: 50, fontWeight: 700, cursor: "pointer", fontSize: 14, border: "none" }}>
+        📲 Partager WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
 
           <section id="infos" style={{ padding: "88px 24px", background: PAGE_BG }}>
             <div style={{ maxWidth: 1000, margin: "0 auto" }}>
