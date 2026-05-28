@@ -269,206 +269,585 @@
           </section>
 
           <section
+    <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADJOBO 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:
+        linear-gradient(
+          135deg,
+          #FFF8E7 0%,
+          #FFE8B3 100%
+        );
+
+      min-height:100vh;
+      padding:50px 20px;
+    }
+
+    .container{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(36px,5vw,64px);
+      color:#4A2200;
+      margin-bottom:12px;
+    }
+
+    .line{
+      width:90px;
+      height:5px;
+      border-radius:50px;
+      background:
+        linear-gradient(
+          90deg,
+          #FFD700,
+          #F5A623
+        );
+
+      margin:0 auto 24px;
+    }
+
+    .desc{
+      color:#6B4A2A;
+      line-height:1.7;
+      font-size:17px;
+      margin-bottom:40px;
+    }
+
+    canvas{
+      width:100%;
+      max-width:390px;
+      border-radius:28px;
+      background:#fff;
+      box-shadow:
+        0 25px 60px rgba(0,0,0,.18);
+    }
+
+    .input{
+      width:100%;
+      max-width:430px;
+
+      margin-top:28px;
+
+      border:2px solid #F5A623;
+
+      border-radius:50px;
+
+      padding:16px 24px;
+
+      font-size:16px;
+
+      font-weight:600;
+
+      outline:none;
+    }
+
+    .buttons{
+      margin-top:28px;
+
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+
+      padding:15px 30px;
+
+      border-radius:50px;
+
+      font-size:15px;
+      font-weight:700;
+
+      transition:.25s;
+    }
+
+    button:hover{
+      transform:translateY(-2px);
+    }
+
+    .upload{
+      background:#fff;
+      color:#D4891A;
+
+      border:2px solid #F5A623;
+    }
+
+    .download{
+      color:#fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          #F5A623,
+          #D4891A
+        );
+    }
+
+    .whatsapp{
+      background:#25D366;
+      color:#fff;
+    }
+
+    input[type="file"]{
+      display:none;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<section
   id="jyserai"
-  style={{
+  style="
     background:
-      "linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC)",
-    padding: "88px 24px"
-  }}
+      linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC);
+    padding:88px 24px;
+    border-radius:32px;
+  "
 >
-  <div
-    style={{
-      maxWidth: 820,
-      margin: "0 auto",
-      textAlign: "center"
-    }}
-  >
-    {/* TITRE */}
-    <h2
-      style={{
-        fontFamily:
-          "'Cormorant Garamond',Georgia,serif",
-        fontSize: "clamp(26px,4vw,44px)",
-        color: HEADING,
-        fontWeight: 700,
-        marginBottom: 10
-      }}
-    >
+
+  <div class="container">
+
+    <h1>
       Affiche fièrement ta participation !
-    </h2>
+    </h1>
 
-    {/* LIGNE */}
-    <div
-      style={{
-        width: 60,
-        height: 3,
-        background: AMBER,
-        margin: "0 auto 20px"
-      }}
-    />
+    <div class="line"></div>
 
-    {/* DESCRIPTION */}
-    <p
-      style={{
-        color: BODY,
-        marginBottom: 38,
-        lineHeight: 1.7,
-        fontSize: 15
-      }}
-    >
-      Importe ta photo, ajoute ton prénom et
-      partage pour montrer que tu seras
-      présent(e) 🎉
+    <p class="desc">
+      Importe ta photo, ajoute ton prénom et partage
+      pour montrer que tu seras présent(e) 🎉
     </p>
 
-    {/* PREVIEW */}
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        marginBottom: 28
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: 360,
-          height: 420,
-          borderRadius: 26,
-          background: "#fff",
-          boxShadow:
-            "0 25px 60px rgba(0,0,0,.18)"
-        }}
-      />
-    </div>
+    <canvas id="canvas"></canvas>
 
-    {/* INPUT */}
+    <br>
+
     <input
-      value={userName}
-      onChange={(e) => {
-        setUserName(e.target.value);
-
-        if (image) {
-          drawCanvas(image, e.target.value);
-        }
-      }}
+      type="text"
+      id="username"
+      class="input"
       placeholder="Ton nom et prénom"
-      style={{
-        background: WHITE,
-        border: `2px solid ${AMBER}`,
-        borderRadius: 50,
-        padding: "16px 24px",
-        color: HEADING,
-        fontSize: 16,
-        width: "100%",
-        maxWidth: 430,
-        outline: "none",
-        marginBottom: 28,
-        display: "block",
-        margin: "0 auto 28px",
-        fontWeight: 600,
-        boxShadow:
-          "0 5px 16px rgba(0,0,0,.06)"
-      }}
     />
 
-    {/* BOUTONS */}
-    <div
-      style={{
-        display: "flex",
-        gap: 14,
-        flexWrap: "wrap",
-        justifyContent: "center"
-      }}
-    >
+    <div class="buttons">
+
       <input
         type="file"
+        id="fileInput"
         accept="image/*"
-        ref={fileRef}
-        style={{ display: "none" }}
-        onChange={handleFile}
       />
 
-      {/* IMPORT */}
       <button
-        onClick={() => fileRef.current.click()}
-        style={{
-          background: WHITE,
-          color: AMBER,
-          border: `2px solid ${AMBER}`,
-          padding: "14px 30px",
-          borderRadius: 50,
-          fontWeight: 700,
-          cursor: "pointer",
-          fontSize: 15,
-          boxShadow:
-            "0 8px 18px rgba(0,0,0,.08)"
-        }}
+        class="upload"
+        onclick="document.getElementById('fileInput').click()"
       >
         📸 Importer ma photo
       </button>
 
-      {/* DOWNLOAD */}
       <button
-        onClick={handleDownload}
-        style={{
-          background:
-            "linear-gradient(135deg,#F5A623,#D4891A)",
-          color: WHITE,
-          padding: "14px 30px",
-          borderRadius: 50,
-          fontWeight: 800,
-          cursor: "pointer",
-          fontSize: 15,
-          border: "none",
-          boxShadow:
-            "0 10px 24px rgba(245,166,35,.35)"
-        }}
+        class="download"
+        onclick="downloadImage()"
       >
         ⬇️ Télécharger
       </button>
 
-      {/* WHATSAPP */}
       <button
-        onClick={() =>
-          window.open(
-            "https://wa.me/?text=" +
-              encodeURIComponent(
-                "Je participe à La Rencontre des Enfants ADJOBO ! 🎉 Du 24 au 26 juillet 2026 à Kilibo, Bénin. #EnfantsADJOBO"
-              ),
-            "_blank"
-          )
-        }
-        style={{
-          background: "#25D366",
-          color: WHITE,
-          padding: "14px 30px",
-          borderRadius: 50,
-          fontWeight: 700,
-          cursor: "pointer",
-          fontSize: 15,
-          border: "none",
-          boxShadow:
-            "0 10px 24px rgba(37,211,102,.25)"
-        }}
+        class="whatsapp"
+        onclick="shareWhatsApp()"
       >
         📲 Partager WhatsApp
       </button>
+
     </div>
 
-    {/* FOOTER */}
-    <div
-      style={{
-        marginTop: 26,
-        color: "#8A6A45",
-        fontSize: 14,
-        fontWeight: 500
-      }}
-    >
-      🔒 Ton image est générée localement et
-      n’est jamais envoyée sur nos serveurs.
-    </div>
   </div>
+
+</section>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const W = 900;
+const H = 1050;
+
+canvas.width = W;
+canvas.height = H;
+
+let uploadedImage = null;
+
+function roundRect(
+  ctx,
+  x,
+  y,
+  width,
+  height,
+  radius
+){
+
+  ctx.beginPath();
+
+  ctx.moveTo(x + radius, y);
+
+  ctx.lineTo(x + width - radius, y);
+
+  ctx.quadraticCurveTo(
+    x + width,
+    y,
+    x + width,
+    y + radius
+  );
+
+  ctx.lineTo(
+    x + width,
+    y + height - radius
+  );
+
+  ctx.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - radius,
+    y + height
+  );
+
+  ctx.lineTo(
+    x + radius,
+    y + height
+  );
+
+  ctx.quadraticCurveTo(
+    x,
+    y + height,
+    x,
+    y + height - radius
+  );
+
+  ctx.lineTo(x, y + radius);
+
+  ctx.quadraticCurveTo(
+    x,
+    y,
+    x + radius,
+    y
+  );
+
+  ctx.closePath();
+}
+
+function drawCanvas(){
+
+  ctx.clearRect(0,0,W,H);
+
+  ctx.fillStyle = "#F6F6F6";
+  ctx.fillRect(0,0,W,H);
+
+  // Carte blanche
+  ctx.shadowColor = "rgba(0,0,0,.15)";
+  ctx.shadowBlur = 28;
+  ctx.shadowOffsetY = 8;
+
+  ctx.fillStyle = "#FFFFFF";
+
+  roundRect(
+    ctx,
+    70,
+    40,
+    760,
+    920,
+    28
+  );
+
+  ctx.fill();
+
+  ctx.shadowColor = "transparent";
+
+  // PHOTO
+  if(uploadedImage){
+
+    const photoX = 120;
+    const photoY = 90;
+
+    const photoW = 660;
+    const photoH = 560;
+
+    const hRatio =
+      photoW / uploadedImage.width;
+
+    const vRatio =
+      photoH / uploadedImage.height;
+
+    const ratio =
+      Math.max(hRatio,vRatio);
+
+    const newWidth =
+      uploadedImage.width * ratio;
+
+    const newHeight =
+      uploadedImage.height * ratio;
+
+    const centerShiftX =
+      (photoW - newWidth) / 2;
+
+    const centerShiftY =
+      (photoH - newHeight) / 2;
+
+    ctx.save();
+
+    roundRect(
+      ctx,
+      photoX,
+      photoY,
+      photoW,
+      photoH,
+      22
+    );
+
+    ctx.clip();
+
+    ctx.drawImage(
+      uploadedImage,
+      photoX + centerShiftX,
+      photoY + centerShiftY,
+      newWidth,
+      newHeight
+    );
+
+    ctx.restore();
+  }
+
+  // J'Y SERAI
+  ctx.font =
+    "900 72px Poppins";
+
+  ctx.textAlign = "center";
+
+  const jyGradient =
+    ctx.createLinearGradient(
+      0,
+      680,
+      0,
+      820
+    );
+
+  jyGradient.addColorStop(
+    0,
+    "#4A2200"
+  );
+
+  jyGradient.addColorStop(
+    1,
+    "#F5A623"
+  );
+
+  ctx.fillStyle = jyGradient;
+
+  ctx.fillText(
+    "J'Y SERAI !",
+    450,
+    760
+  );
+
+  // TITRE
+  ctx.fillStyle = "#4A2200";
+
+  ctx.font =
+    "bold 30px Poppins";
+
+  ctx.fillText(
+    "LA RENCONTRE DES ENFANTS ADJOBO",
+    450,
+    840
+  );
+
+  // LIGNE
+  ctx.fillStyle = "#F5A623";
+
+  roundRect(
+    ctx,
+    250,
+    870,
+    400,
+    5,
+    20
+  );
+
+  ctx.fill();
+
+  // DATE
+  ctx.font =
+    "600 22px Poppins";
+
+  ctx.fillStyle = "#6B4A2A";
+
+  ctx.fillText(
+    "24 - 26 JUILLET 2026 • KILIBO, BÉNIN",
+    450,
+    920
+  );
+
+  // NOM
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim();
+
+  if(username){
+
+    ctx.shadowColor =
+      "rgba(0,0,0,.20)";
+
+    ctx.shadowBlur = 18;
+
+    const gradient =
+      ctx.createLinearGradient(
+        180,
+        0,
+        720,
+        0
+      );
+
+    gradient.addColorStop(
+      0,
+      "#F5A623"
+    );
+
+    gradient.addColorStop(
+      1,
+      "#D4891A"
+    );
+
+    ctx.fillStyle = gradient;
+
+    roundRect(
+      ctx,
+      180,
+      960,
+      540,
+      78,
+      22
+    );
+
+    ctx.fill();
+
+    ctx.shadowColor =
+      "transparent";
+
+    ctx.fillStyle = "#FFFFFF";
+
+    ctx.font =
+      "bold 40px Poppins";
+
+    ctx.fillText(
+      username.toUpperCase(),
+      450,
+      1012
+    );
+  }
+}
+
+document
+  .getElementById("username")
+  .addEventListener(
+    "input",
+    drawCanvas
+  );
+
+document
+  .getElementById("fileInput")
+  .addEventListener(
+    "change",
+    function(e){
+
+      const file =
+        e.target.files[0];
+
+      if(!file) return;
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function(event){
+
+          const img =
+            new Image();
+
+          img.onload =
+            function(){
+
+              uploadedImage = img;
+
+              drawCanvas();
+            };
+
+          img.src =
+            event.target.result;
+        };
+
+      reader.readAsDataURL(file);
+});
+
+function downloadImage(){
+
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim() || "ADJOBO";
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    `ADJOBO_${username}.png`;
+
+  link.href =
+    canvas.toDataURL(
+      "image/png",
+      1
+    );
+
+  link.click();
+}
+
+function shareWhatsApp(){
+
+  const text =
+    "Je participe à La Rencontre des Enfants ADJOBO ! 🎉 Du 24 au 26 juillet 2026 à Kilibo, Bénin.";
+
+  window.open(
+    "https://wa.me/?text=" +
+    encodeURIComponent(text),
+    "_blank"
+  );
+}
 </section>
 
           <section id="infos" style={{ padding: "88px 24px", background: PAGE_BG }}>
