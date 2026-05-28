@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>La Rencontre des Enfants ADJOBO 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#FFF9EF;
+  color:#4A2200;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  background:
+    linear-gradient(
+      135deg,
+      #F5A623 0%,
+      #D97806 50%,
+      #A84200 100%
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:120px 20px 80px;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(255,255,255,.18),
+      transparent 60%
+    );
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+}
+
+.badge{
+  display:inline-block;
+
+  background:
+    rgba(255,255,255,.18);
+
+  border:
+    1px solid rgba(255,255,255,.4);
+
+  color:#fff;
+
+  padding:8px 22px;
+
+  border-radius:50px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  margin-bottom:28px;
+}
+
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(48px,8vw,88px);
+
+  line-height:1.05;
+
+  color:#fff;
+
+  margin-bottom:20px;
+}
+
+.hero h1 span{
+  color:#FFF2BE;
+}
+
+.slogan{
+  font-size:22px;
+
+  color:rgba(255,255,255,.92);
+
+  font-style:italic;
+
+  margin-bottom:18px;
+}
+
+.event-date{
+  color:#FFF2BE;
+
+  font-size:16px;
+
+  font-weight:800;
+
+  letter-spacing:1px;
+
+  margin-bottom:42px;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+
+  margin-bottom:60px;
+}
+
+.btn{
+  padding:16px 34px;
+
+  border-radius:50px;
+
+  border:none;
+
+  font-weight:700;
+
+  font-size:15px;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.btn-primary{
+  background:#fff;
+  color:#A84200;
+}
+
+.btn-secondary{
+  background:transparent;
+  color:#fff;
+
+  border:2px solid rgba(255,255,255,.55);
+}
+
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.count-box{
+  min-width:90px;
+
+  background:
+    rgba(255,255,255,.15);
+
+  border:
+    1px solid rgba(255,255,255,.35);
+
+  border-radius:18px;
+
+  padding:18px;
+
+  backdrop-filter:blur(8px);
+}
+
+.count-number{
+  font-size:44px;
+  color:#fff;
+  font-weight:800;
+}
+
+.count-label{
+  color:rgba(255,255,255,.8);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-top:6px;
+}
+
+/* POURQUOI */
+
+.why{
+  padding:100px 24px;
+  background:#FFF9EF;
+}
+
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,60px);
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.line{
+  width:80px;
+  height:4px;
+  border-radius:50px;
+  background:#C8780A;
+  margin:0 auto 24px;
+}
+
+.section-desc{
+  max-width:760px;
+  margin:0 auto 60px;
+  text-align:center;
+  line-height:1.8;
+  color:#7A4018;
+  font-size:17px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+  gap:24px;
+
+  max-width:1200px;
+  margin:auto;
+}
+
+.card{
+  background:#fff;
+
+  border-radius:24px;
+
+  padding:34px 28px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.06);
+
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+.icon{
+  font-size:48px;
+  margin-bottom:18px;
+}
+
+.card h3{
+  font-size:24px;
+  margin-bottom:12px;
+  font-family:'Cormorant Garamond',serif;
+}
+
+.card p{
+  color:#7A4018;
+  line-height:1.7;
+  font-size:15px;
+}
+
+/* JY SERAI */
+
+#jyserai{
+  background:
+    linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC);
+
+  padding:88px 24px;
+}
+
+.container{
+  max-width:820px;
+  margin:auto;
+  text-align:center;
+}
+
+.j-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,5vw,56px);
+  margin-bottom:10px;
+}
+
+.j-desc{
+  color:#7A4018;
+  line-height:1.7;
+  margin-bottom:40px;
+}
+
+canvas{
+  width:100%;
+  max-width:390px;
+
+  border-radius:28px;
+
+  background:#fff;
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.18);
+}
+
+.input{
+  width:100%;
+  max-width:430px;
+
+  margin-top:28px;
+
+  border:2px solid #C8780A;
+
+  border-radius:50px;
+
+  padding:16px 24px;
+
+  font-size:16px;
+
+  font-weight:600;
+
+  outline:none;
+}
+
+.buttons{
+  margin-top:28px;
+
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+
+  padding:15px 30px;
+
+  border-radius:50px;
+
+  font-size:15px;
+  font-weight:700;
+}
+
+.upload{
+  background:#fff;
+  color:#C8780A;
+  border:2px solid #C8780A;
+}
+
+.download{
+  background:
+    linear-gradient(
+      135deg,
+      #F5A623,
+      #D4891A
+    );
+
+  color:#fff;
+}
+
+.whatsapp{
+  background:#25D366;
+  color:#fff;
+}
+
+input[type="file"]{
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="badge">
+      ÉVÉNEMENT FAMILIAL • BÉNIN 2026
+    </div>
+
+    <h1>
+      La Rencontre de Tous les
+      <br>
+      <span>les Enfants ADJOBO</span>
+    </h1>
+
+    <div class="slogan">
+      “Unir nos racines, célébrer notre héritage”
+    </div>
+
+    <div class="event-date">
+      📅 DU 24 AU 26 JUILLET 2026 • KILIBO, BÉNIN
+    </div>
+
+    <div class="hero-buttons">
+
+      <button
+        class="btn btn-primary"
+        onclick="document.getElementById('jyserai').scrollIntoView()"
+      >
+        Je participe
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="document.getElementById('jyserai').scrollIntoView()"
+      >
+        Créer ma photo J’y serai
+      </button>
+
+    </div>
+
+    <div class="countdown">
+
+      <div class="count-box">
+        <div class="count-number" id="days">00</div>
+        <div class="count-label">Jours</div>
+      </div>
+
+      <div class="count-box">
+        <div class="count-number" id="hours">00</div>
+        <div class="count-label">Heures</div>
+      </div>
+
+      <div class="count-box">
+        <div class="count-number" id="minutes">00</div>
+        <div class="count-label">Minutes</div>
+      </div>
+
+      <div class="count-box">
+        <div class="count-number" id="seconds">00</div>
+        <div class="count-label">Secondes</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- POURQUOI -->
+
+<section class="why">
+
+  <h2 class="section-title">
+    Pourquoi cette rencontre ?
+  </h2>
+
+  <div class="line"></div>
+
+  <p class="section-desc">
+    Cette rencontre familiale est un moment unique
+    pour renouer les liens entre générations,
+    transmettre nos valeurs, célébrer notre héritage
+    commun et construire une solidarité durable
+    entre tous les enfants ADJOBO.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon">🌳</div>
+      <h3>Liens familiaux</h3>
+      <p>
+        Renforcer les relations entre les différentes
+        branches de la famille ADJOBO.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📿</div>
+      <h3>Transmission</h3>
+      <p>
+        Partager nos valeurs, traditions et histoires
+        aux nouvelles générations.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🤝</div>
+      <h3>Reconnexion</h3>
+      <p>
+        Créer des ponts solides entre les générations
+        pour préserver nos racines.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">👑</div>
+      <h3>Héritage ADJOBO</h3>
+      <p>
+        Honorer l’histoire, la culture et la grandeur
+        du nom ADJOBO.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">💼</div>
+      <h3>Networking familial</h3>
+      <p>
+        Développer des connexions professionnelles
+        et solidaires au sein de la famille.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🕊️</div>
+      <h3>Unité & solidarité</h3>
+      <p>
+        Construire une famille plus forte, unie
+        et tournée vers l’avenir.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- JY SERAI -->
+
+<section id="jyserai">
+
+  <div class="container">
+
+    <h2 class="j-title">
+      Affiche fièrement ta participation !
+    </h2>
+
+    <div class="line"></div>
+
+    <p class="j-desc">
+      Importe ta photo, ajoute ton nom et partage
+      pour montrer que tu seras présent(e) 🎉
+    </p>
+
+    <canvas id="canvas"></canvas>
+
+    <br>
+
+    <input
+      type="text"
+      id="username"
+      class="input"
+      placeholder="Ton nom et prénom"
+    />
+
+    <div class="buttons">
+
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+      />
+
+      <button
+        class="upload"
+        onclick="document.getElementById('fileInput').click()"
+      >
+        📸 Importer ma photo
+      </button>
+
+      <button
+        class="download"
+        onclick="downloadImage()"
+      >
+        ⬇️ Télécharger
+      </button>
+
+      <button
+        class="whatsapp"
+        onclick="shareWhatsApp()"
+      >
+        📲 Partager WhatsApp
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+// COUNTDOWN
+
+const targetDate =
+  new Date("2026-07-24T09:00:00").getTime();
+
+function updateCountdown(){
+
+  const now = new Date().getTime();
+
+  const distance = targetDate - now;
+
+  const days =
+    Math.floor(distance / (1000*60*60*24));
+
+  const hours =
+    Math.floor((distance % (1000*60*60*24))
+    / (1000*60*60));
+
+  const minutes =
+    Math.floor((distance % (1000*60*60))
+    / (1000*60));
+
+  const seconds =
+    Math.floor((distance % (1000*60))
+    / 1000);
+
+  document.getElementById("days").innerText =
+    String(days).padStart(2,"0");
+
+  document.getElementById("hours").innerText =
+    String(hours).padStart(2,"0");
+
+  document.getElementById("minutes").innerText =
+    String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds").innerText =
+    String(seconds).padStart(2,"0");
+}
+
+setInterval(updateCountdown,1000);
+
+updateCountdown();
+
+// FRAME
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const W = 900;
+const H = 1050;
+
+canvas.width = W;
+canvas.height = H;
+
+let uploadedImage = null;
+
+function roundRect(ctx,x,y,width,height,radius){
+
+  ctx.beginPath();
+
+  ctx.moveTo(x + radius, y);
+
+  ctx.lineTo(x + width - radius, y);
+
+  ctx.quadraticCurveTo(
+    x + width,
+    y,
+    x + width,
+    y + radius
+  );
+
+  ctx.lineTo(
+    x + width,
+    y + height - radius
+  );
+
+  ctx.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - radius,
+    y + height
+  );
+
+  ctx.lineTo(
+    x + radius,
+    y + height
+  );
+
+  ctx.quadraticCurveTo(
+    x,
+    y + height,
+    x,
+    y + height - radius
+  );
+
+  ctx.lineTo(x, y + radius);
+
+  ctx.quadraticCurveTo(
+    x,
+    y,
+    x + radius,
+    y
+  );
+
+  ctx.closePath();
+}
+
+function drawCanvas(){
+
+  ctx.clearRect(0,0,W,H);
+
+  ctx.fillStyle = "#F5F5F5";
+  ctx.fillRect(0,0,W,H);
+
+  ctx.shadowColor = "rgba(0,0,0,.15)";
+  ctx.shadowBlur = 28;
+  ctx.shadowOffsetY = 8;
+
+  ctx.fillStyle = "#FFFFFF";
+
+  roundRect(
+    ctx,
+    70,
+    40,
+    760,
+    920,
+    28
+  );
+
+  ctx.fill();
+
+  ctx.shadowColor = "transparent";
+
+  if(uploadedImage){
+
+    const photoX = 120;
+    const photoY = 90;
+
+    const photoW = 660;
+    const photoH = 560;
+
+    const hRatio =
+      photoW / uploadedImage.width;
+
+    const vRatio =
+      photoH / uploadedImage.height;
+
+    const ratio =
+      Math.max(hRatio,vRatio);
+
+    const newWidth =
+      uploadedImage.width * ratio;
+
+    const newHeight =
+      uploadedImage.height * ratio;
+
+    const centerShiftX =
+      (photoW - newWidth) / 2;
+
+    const centerShiftY =
+      (photoH - newHeight) / 2;
+
+    ctx.save();
+
+    roundRect(
+      ctx,
+      photoX,
+      photoY,
+      photoW,
+      photoH,
+      22
+    );
+
+    ctx.clip();
+
+    ctx.drawImage(
+      uploadedImage,
+      photoX + centerShiftX,
+      photoY + centerShiftY,
+      newWidth,
+      newHeight
+    );
+
+    ctx.restore();
+  }
+
+  ctx.font = "900 72px Poppins";
+
+  ctx.textAlign = "center";
+
+  const jyGradient =
+    ctx.createLinearGradient(
+      0,
+      680,
+      0,
+      820
+    );
+
+  jyGradient.addColorStop(
+    0,
+    "#4A2200"
+  );
+
+  jyGradient.addColorStop(
+    1,
+    "#F5A623"
+  );
+
+  ctx.fillStyle = jyGradient;
+
+  ctx.fillText(
+    "J'Y SERAI !",
+    450,
+    760
+  );
+
+  ctx.fillStyle = "#4A2200";
+
+  ctx.font = "bold 30px Poppins";
+
+  ctx.fillText(
+    "LA RENCONTRE DES ENFANTS ADJOBO",
+    450,
+    840
+  );
+
+  ctx.fillStyle = "#F5A623";
+
+  roundRect(
+    ctx,
+    250,
+    870,
+    400,
+    5,
+    20
+  );
+
+  ctx.fill();
+
+  ctx.font = "600 22px Poppins";
+
+  ctx.fillStyle = "#6B4A2A";
+
+  ctx.fillText(
+    "24 - 26 JUILLET 2026 • KILIBO, BÉNIN",
+    450,
+    920
+  );
+
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim();
+
+  if(username){
+
+    ctx.shadowColor =
+      "rgba(0,0,0,.20)";
+
+    ctx.shadowBlur = 18;
+
+    const gradient =
+      ctx.createLinearGradient(
+        180,
+        0,
+        720,
+        0
+      );
+
+    gradient.addColorStop(
+      0,
+      "#F5A623"
+    );
+
+    gradient.addColorStop(
+      1,
+      "#D4891A"
+    );
+
+    ctx.fillStyle = gradient;
+
+    roundRect(
+      ctx,
+      180,
+      960,
+      540,
+      78,
+      22
+    );
+
+    ctx.fill();
+
+    ctx.shadowColor =
+      "transparent";
+
+    ctx.fillStyle = "#FFFFFF";
+
+    ctx.font =
+      "bold 40px Poppins";
+
+    ctx.fillText(
+      username.toUpperCase(),
+      450,
+      1012
+    );
+  }
+}
+
+document
+  .getElementById("username")
+  .addEventListener(
+    "input",
+    drawCanvas
+  );
+
+document
+  .getElementById("fileInput")
+  .addEventListener(
+    "change",
+    function(e){
+
+      const file =
+        e.target.files[0];
+
+      if(!file) return;
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function(event){
+
+          const img =
+            new Image();
+
+          img.onload =
+            function(){
+
+              uploadedImage = img;
+
+              drawCanvas();
+            };
+
+          img.src =
+            event.target.result;
+        };
+
+      reader.readAsDataURL(file);
+});
+
+function downloadImage(){
+
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim() || "ADJOBO";
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    `ADJOBO_${username}.png`;
+
+  link.href =
+    canvas.toDataURL(
+      "image/png",
+      1
+    );
+
+  link.click();
+}
+
+function shareWhatsApp(){
+
+  const text =
+    "Je participe à La Rencontre des Enfants ADJOBO ! 🎉 Du 24 au 26 juillet 2026 à Kilibo, Bénin.";
+
+  window.open(
+    "https://wa.me/?text=" +
+    encodeURIComponent(text),
+    "_blank"
+  );
+}
+
+drawCanvas();
+
+</script>
+
+</body>
+</html>
