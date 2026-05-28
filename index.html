@@ -268,125 +268,84 @@
             </div>
           </section>
 
-          <section id="jyserai" style={{ background: "linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC)", padding: "88px 24px" }}>
-  <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
-
-    <h2 style={{
-      fontFamily: "'Cormorant Garamond',Georgia,serif",
-      fontSize: "clamp(26px,4vw,44px)",
-      color: HEADING,
-      fontWeight: 700,
-      marginBottom: 10
-    }}>
+          <section
+  id="jyserai"
+  style={{
+    background:
+      "linear-gradient(160deg,#FEF0CC,#FDDEA0,#FEF0CC)",
+    padding: "88px 24px"
+  }}
+>
+  <div
+    style={{
+      maxWidth: 820,
+      margin: "0 auto",
+      textAlign: "center"
+    }}
+  >
+    {/* TITRE */}
+    <h2
+      style={{
+        fontFamily:
+          "'Cormorant Garamond',Georgia,serif",
+        fontSize: "clamp(26px,4vw,44px)",
+        color: HEADING,
+        fontWeight: 700,
+        marginBottom: 10
+      }}
+    >
       Affiche fièrement ta participation !
     </h2>
 
-    <div style={{
-      width: 60,
-      height: 3,
-      background: AMBER,
-      margin: "0 auto 20px"
-    }} />
+    {/* LIGNE */}
+    <div
+      style={{
+        width: 60,
+        height: 3,
+        background: AMBER,
+        margin: "0 auto 20px"
+      }}
+    />
 
-    <p style={{
-      color: BODY,
-      marginBottom: 38,
-      lineHeight: 1.7,
-      fontSize: 15
-    }}>
-      Importe ta photo, choisis ton style de cadre,
-      personnalise avec ton prénom et partage pour
-      montrer que tu seras présent(e) 🎉
+    {/* DESCRIPTION */}
+    <p
+      style={{
+        color: BODY,
+        marginBottom: 38,
+        lineHeight: 1.7,
+        fontSize: 15
+      }}
+    >
+      Importe ta photo, ajoute ton prénom et
+      partage pour montrer que tu seras
+      présent(e) 🎉
     </p>
 
-    {/* CHOIX DU FRAME */}
-    <div style={{
-      display: "flex",
-      gap: 12,
-      flexWrap: "wrap",
-      justifyContent: "center",
-      marginBottom: 32
-    }}>
-      {FRAME_STYLES.map((f, i) => (
-        <button
-          key={f.id}
-          onClick={() => setFrameIdx(i)}
-          style={{
-            padding: "10px 22px",
-            borderRadius: 50,
-            border: `2px solid ${
-              i === frameIdx
-                ? AMBER
-                : "rgba(200,120,10,0.25)"
-            }`,
-            background:
-              i === frameIdx
-                ? "rgba(200,120,10,0.12)"
-                : WHITE,
-            color:
-              i === frameIdx
-                ? AMBER
-                : BODY,
-            fontWeight: 700,
-            fontSize: 14,
-            cursor: "pointer",
-            transition: "all .2s"
-          }}
-        >
-          {f.label}
-        </button>
-      ))}
-    </div>
-
     {/* PREVIEW */}
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-      marginBottom: 28
-    }}>
-      <div style={{
-        position: "relative",
-        width: 360,
-        height: 360
-      }}>
-
-        <canvas
-          ref={canvasRef}
-          style={{
-            width: 360,
-            height: 360,
-            borderRadius: 18,
-            boxShadow:
-              "0 25px 60px rgba(0,0,0,0.18)",
-            background: "#fff"
-          }}
-        />
-
-        {/* BADGE */}
-        <div style={{
-          position: "absolute",
-          top: -10,
-          right: -10,
-          background:
-            "linear-gradient(135deg,#FFD700,#F5A623)",
-          color: "#fff",
-          padding: "8px 16px",
-          borderRadius: 50,
-          fontWeight: 700,
-          fontSize: 12,
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginBottom: 28
+      }}
+    >
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: 360,
+          height: 420,
+          borderRadius: 26,
+          background: "#fff",
           boxShadow:
-            "0 6px 14px rgba(0,0,0,.18)"
-        }}>
-          ADJOBO 2026
-        </div>
-
-      </div>
+            "0 25px 60px rgba(0,0,0,.18)"
+        }}
+      />
     </div>
 
     {/* INPUT */}
     <input
       value={userName}
-      onChange={e => {
+      onChange={(e) => {
         setUserName(e.target.value);
 
         if (image) {
@@ -396,31 +355,32 @@
       placeholder="Ton nom et prénom"
       style={{
         background: WHITE,
-        border: `2px solid ${AMBER_LT}`,
+        border: `2px solid ${AMBER}`,
         borderRadius: 50,
-        padding: "15px 24px",
+        padding: "16px 24px",
         color: HEADING,
         fontSize: 16,
         width: "100%",
-        maxWidth: 420,
+        maxWidth: 430,
         outline: "none",
         marginBottom: 28,
         display: "block",
         margin: "0 auto 28px",
         fontWeight: 600,
         boxShadow:
-          "0 4px 12px rgba(0,0,0,.05)"
+          "0 5px 16px rgba(0,0,0,.06)"
       }}
     />
 
     {/* BOUTONS */}
-    <div style={{
-      display: "flex",
-      gap: 14,
-      flexWrap: "wrap",
-      justifyContent: "center"
-    }}>
-
+    <div
+      style={{
+        display: "flex",
+        gap: 14,
+        flexWrap: "wrap",
+        justifyContent: "center"
+      }}
+    >
       <input
         type="file"
         accept="image/*"
@@ -429,44 +389,46 @@
         onChange={handleFile}
       />
 
+      {/* IMPORT */}
       <button
         onClick={() => fileRef.current.click()}
         style={{
           background: WHITE,
           color: AMBER,
           border: `2px solid ${AMBER}`,
-          padding: "14px 28px",
+          padding: "14px 30px",
           borderRadius: 50,
           fontWeight: 700,
           cursor: "pointer",
-          fontSize: 14,
+          fontSize: 15,
           boxShadow:
-            "0 6px 16px rgba(0,0,0,.08)",
-          transition: ".2s"
+            "0 8px 18px rgba(0,0,0,.08)"
         }}
       >
         📸 Importer ma photo
       </button>
 
+      {/* DOWNLOAD */}
       <button
         onClick={handleDownload}
         style={{
           background:
             "linear-gradient(135deg,#F5A623,#D4891A)",
           color: WHITE,
-          padding: "14px 28px",
+          padding: "14px 30px",
           borderRadius: 50,
           fontWeight: 800,
           cursor: "pointer",
-          fontSize: 14,
+          fontSize: 15,
           border: "none",
           boxShadow:
-            "0 8px 18px rgba(245,166,35,.35)"
+            "0 10px 24px rgba(245,166,35,.35)"
         }}
       >
         ⬇️ Télécharger
       </button>
 
+      {/* WHATSAPP */}
       <button
         onClick={() =>
           window.open(
@@ -480,67 +442,32 @@
         style={{
           background: "#25D366",
           color: WHITE,
-          padding: "14px 28px",
+          padding: "14px 30px",
           borderRadius: 50,
           fontWeight: 700,
           cursor: "pointer",
-          fontSize: 14,
+          fontSize: 15,
           border: "none",
           boxShadow:
-            "0 8px 18px rgba(37,211,102,.28)"
+            "0 10px 24px rgba(37,211,102,.25)"
         }}
       >
         📲 Partager WhatsApp
       </button>
     </div>
 
-    {/* INFOS EVENT */}
-    <div style={{
-      marginTop: 45,
-      textAlign: "center"
-    }}>
-
-      <div style={{
-        fontSize: 38,
-        fontWeight: 800,
-        color: "#D4891A",
-        textShadow:
-          "0 2px 8px rgba(0,0,0,.08)",
-        marginBottom: 10,
-        fontFamily:
-          "'Cormorant Garamond',Georgia,serif"
-      }}>
-        J'Y SERAI !
-      </div>
-
-      <div style={{
-        fontSize: 20,
-        fontWeight: 800,
-        color: "#5C3A21",
-        marginBottom: 10
-      }}>
-        LA RENCONTRE DES ENFANTS ADJOBO
-      </div>
-
-      <div style={{
-        width: 120,
-        height: 4,
-        background:
-          "linear-gradient(90deg,#FFD700,#F5A623)",
-        margin: "0 auto 14px",
-        borderRadius: 50
-      }} />
-
-      <div style={{
-        color: BODY,
-        fontSize: 15,
-        fontWeight: 600
-      }}>
-        24 - 26 JUILLET 2026 • KILIBO, BÉNIN
-      </div>
-
+    {/* FOOTER */}
+    <div
+      style={{
+        marginTop: 26,
+        color: "#8A6A45",
+        fontSize: 14,
+        fontWeight: 500
+      }}
+    >
+      🔒 Ton image est générée localement et
+      n’est jamais envoyée sur nos serveurs.
     </div>
-
   </div>
 </section>
 
